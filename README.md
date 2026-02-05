@@ -2,7 +2,7 @@
 
 Projekt analityczny SQL + Power BI
 
-![Page1](assets/Page1.png)
+![Page1](Assets/Page1.png)
 ## Cel biznesowy projektu
 
 Niewielka firma (10–20 pracowników) realizuje projekty zagraniczne, w ramach których pracownicy odbywają delegacje służbowe.
@@ -10,19 +10,17 @@ Koszty delegacji stanowią istotny element kosztów projektowych, jednak bez odp
 
 Celem projektu jest:
 
-- zaprojektowanie relacyjnej bazy danych,
+- Zaprojektowanie relacyjnej bazy danych
 
-- przygotowanie warstwy analitycznej w SQL,
+- Przygotowanie warstwy analitycznej w SQL
 
-- zbudowanie tabeli faktów gotowej do analizy w Power BI,
+- Zbudowanie tabeli faktów gotowej do analizy w Power BI
 
-- wykonanie analizy kosztów delegacji w ujęciu biznesowym.
+- Wykonanie analizy kosztów delegacji w ujęciu biznesowym
 
 Projekt jest SQL-first – cała logika przygotowania danych znajduje się w bazie danych, a Power BI pełni rolę warstwy analityczno-wizualnej.
 
 ## Podstawowe pytania
-
-Projekt odpowiada m.in. na pytania:
 
 - Jakie są całkowite i średnie koszty delegacji?
 
@@ -36,17 +34,16 @@ Projekt odpowiada m.in. na pytania:
 
 ## Zakres i założenia
 
-- dane syntetyczne, ale realistyczne biznesowo
+- Dane syntetyczne, ale realistyczne biznesowo
 
-- delegacje zagraniczne, różne waluty
+- Delegacje zagraniczne, różne waluty
 
-- waluta raportowa: PLN
+- Waluta raportowa: PLN
 
-- okres danych: 1 rok
+- Okres danych: 1 rok
 
-- brak przechowywania agregatów typu total_cost w tabelach źródłowych
+- Brak przechowywania agregatów typu total_cost w tabelach źródłowych
 → wszystkie agregacje liczone w SQL lub w miarach Power BI
-
 
 ## Decyzje projektowe
 
@@ -105,51 +102,45 @@ Model został zaprojektowany tak, aby:
 
 ## Struktura skryptów SQL
 
-Lokalizacja: [Skrypty SQL](./Assets/SQL Scripts)
+Lokalizacja: [Skrypty SQL](/SQL%20Scripts/)
 
-[Zobacz szczegóły projektu (README.md)](/2_Power_BI/README.md)
 
 
 ### 1. Tworzenie bazy i struktury
 
-- [Utworzenie bazy danych. (1_Create_database.sql)](/SQL Scripts/1_Create_database.sql)
+- [Utworzenie bazy danych. (1_Create_database.sql)](/SQL%20Scripts/1_Create_database.sql)
 
-- Definicje tabel wraz z kluczami głównymi i obcymi.
+- [Definicje tabel wraz z kluczami głównymi i obcymi. (2_Create_tables.sql)](/SQL%20Scripts/2_Create_tables.sql)
 
-- Indeksy na kluczach obcych oraz kolumnach dat.
+- [Indeksy na kluczach obcych oraz kolumnach dat. (3_Create_indexes.sql)](/SQL%20Scripts/3_Create_indexes.sql)
 
-- Skrypt kontrolny sprawdzający poprawność struktury.
+- [Skrypt kontrolny sprawdzający poprawność struktury. (4_check_tables_indexes.sql)](/SQL%20Scripts/4_check_tables_indexes.sql)
 
 ### 2. Zasilanie danymi i kontrola jakości
 
-Generowanie danych syntetycznych:
+- [Generowanie danych syntetycznych. (5_populate_tables.sql)](/SQL%20Scripts/5_populate_tables.sql)
 
-- Delegacje o różnej długości.
+    - Delegacje o różnej długości.
 
-- Różna liczba pracowników.
+    - Różna liczba pracowników.
 
-- Różne typy kosztów (hotel, dieta, transport).
+    - Różne typy kosztów (hotel, dieta, transport).
 
-- Różne waluty.
+    - Różne waluty.
 
-- Kontrole jakości danych (spójność, brak danych nieprawidłowych).
+- [Kontrole jakości danych (spójność, brak danych nieprawidłowych). (6_data_quality.sql)](/SQL%20Scripts/6_data_quality.sql)
 
 ### 3. Budowa warstwy analitycznej (fact tables)
 
 Krok po kroku budowana jest warstwa faktów, zwiększając granularność danych:
 
-- **7A_delegation_costs_pln.sql**
-Koszty delegacji przeliczone do PLN.
+- [Koszty delegacji przeliczone do PLN. (7A_delegation_costs_pln.sql)](/SQL%20Scripts/7A_delegation_costs_pln.sql)
 
-- **7B_delegation_costs_by_employee.sql**
-Rozbicie kosztów delegacji na pracowników.
+- [Rozbicie kosztów delegacji na pracowników. (7B_delegation_costs_by_employee.sql)](/SQL%20Scripts/7B_delegation_costs_by_employee.sql)
 
-- **7C_delegation_costs_per_day.sql**
-Rozbicie kosztów delegacji na dni.
+- [Rozbicie kosztów delegacji na dni. (7C_delegation_costs_per_day.sql)](/SQL%20Scripts/7C_delegation_costs_per_day.sql)
 
-- **7D_delegation_costs_by_employee_per_day.sql**
-Finalna tabela faktów:
-1 rekord = 1 pracownik × 1 delegacja × 1 dzień
+- [Rozbicie kosztów delegacji na pracowników i na dni(7D_delegation_costs_by_employee_per_day.sql)](/SQL%20Scripts/7D_delegation_costs_by_employee_per_day.sql)
 
 To właśnie ta tabela stanowi źródło danych dla Power BI.
 
@@ -157,13 +148,15 @@ To właśnie ta tabela stanowi źródło danych dla Power BI.
 
 Złożona logika została zamknięta w widokach, które mogą być bezpośrednio używane w narzędziach BI:
 
-- **8A_view_delegation_costs_pln.sql**
+- [8A_view_delegation_costs_pln.sql](/SQL%20Scripts/8A_view_delegation_costs_pln.sql)
 
-- **8B_view_delegation_costs_by_employee.sql**
+- [8B_view_delegation_costs_by_employee.sql](/SQL%20Scripts/8B_view_delegation_costs_by_employee.sql)
 
-- **8C_view_delegation_costs_per_day.sql**
+- [8C_view_delegation_costs_per_day.sql](/SQL%20Scripts/8C_view_delegation_costs_per_day.sql)
 
-- **8D_view_delegation_costs_by_employee_per_day.sql**
+- [8D_view_delegation_costs_by_employee_per_day.sql](/SQL%20Scripts/8D_view_delegation_costs_by_employee_per_day.sql)
+
+1 rekord = 1 pracownik × 1 delegacja × 1 dzień
 
 Przykładowa transformacja: Rozbicie kosztów całkowitych na granularność dzienną przy użyciu tabeli kalendarza i relacji M:N
 
@@ -219,7 +212,7 @@ znajduje się w SQL, a nie w DAX.
 
 ## Zakres analizy w Power BI
 
-![Page1](assets/Page1.png)
+![Page1](Assets/Page1.png)
 
 Dashboard składa się z:
 
@@ -231,9 +224,9 @@ Dashboard składa się z:
 
 - tooltipów z kontekstem szczegółowym
 
-![Page1_Tooltip_Employee](assets/Page1_Tooltip_Employee.png)
+![Page1_Tooltip_Employee](Assets/Page1_Tooltip_Employee.png)
 
-![Page1_Tooltip_Project](assets/Page1_Tooltip_Project.png)
+![Page1_Tooltip_Project](Assets/Page1_Tooltip_Project.png)
 
 Dashboard odpowiada m.in. na pytania:
 
@@ -255,7 +248,7 @@ Dashboard odpowiada m.in. na pytania:
 
 - większość kosztów pochodzi z jednego projektu (Project_ID 1)
 
-- jeden pracownik wygenerował ponad 38% kosztów na projekcie (Employee_ID 1)
+- jeden pracownik wygenerował ponad 38% kosztów na projekcie (Employee_ID 1) ale spędził na projekcie najwięcej czasu
 
 - większe koszty w pierwszej połowie roku wynikały z większej liczby dni delegacji 
 
