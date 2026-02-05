@@ -5,7 +5,7 @@ Projekt analityczny SQL + Power BI
 ![Page1](Assets/Page1.png)
 ## Cel biznesowy projektu
 
-Niewielka firma (10–20 pracowników) realizuje projekty zagraniczne, w ramach których pracownicy odbywają delegacje służbowe.
+Niewielka firma projektowa (kilkanaście–kilkadziesiąt pracowników) realizuje projekty zagraniczne, w ramach których pracownicy odbywają delegacje służbowe.
 Koszty delegacji stanowią istotny element kosztów projektowych, jednak bez odpowiedniego modelu danych trudno analizować je przekrojowo w czasie, per projekt czy per pracownik.
 
 Celem projektu jest:
@@ -140,9 +140,7 @@ Krok po kroku budowana jest warstwa faktów, zwiększając granularność danych
 
 - [Rozbicie kosztów delegacji na dni. (7C_delegation_costs_per_day.sql)](/SQL%20Scripts/7C_delegation_costs_per_day.sql)
 
-- [Rozbicie kosztów delegacji na pracowników i na dni(7D_delegation_costs_by_employee_per_day.sql)](/SQL%20Scripts/7D_delegation_costs_by_employee_per_day.sql)
-
-To właśnie ta tabela stanowi źródło danych dla Power BI.
+- [Rozbicie kosztów delegacji na pracowników i na dni (7D_delegation_costs_by_employee_per_day.sql)](/SQL%20Scripts/7D_delegation_costs_by_employee_per_day.sql)
 
 ### 4. Widoki raportowe
 
@@ -196,7 +194,7 @@ Po zbudowaniu finalnej tabeli faktów analiza przenosi się do Power BI, gdzie:
 
 1. tworzony jest model gwiazdy,
 
-![Page1](assets/Star_Schema.png)
+![Page1](Assets/Star_Schema.png)
 
 2. definiowane są miary (Total Cost, Avg Daily Cost, rankingi),
 
@@ -206,7 +204,7 @@ Logika biznesowa dotycząca:
 
 - długości delegacji,
 
-- alokacji kosztów na pracowników i dni
+- alokacji kosztów na pracowników i dni 
 
 znajduje się w SQL, a nie w DAX.
 
@@ -246,12 +244,11 @@ Dashboard odpowiada m.in. na pytania:
 
 - 30% delegacji wygenerowało 50% kosztów (Delegation_ID: 2, 1, 5) 
 
-- większość kosztów pochodzi z jednego projektu (Project_ID 1)
+- większość kosztów pochodziła z jednego projektu, co sugeruje jego dominujący wpływ na budżet delegacji (Project_ID 1)
 
-- jeden pracownik wygenerował ponad 38% kosztów na projekcie (Employee_ID 1) ale spędził na projekcie najwięcej czasu
+- jeden z pracowników wygenerował ponad 38% kosztów projektu, co wynikało z najdłuższego czasu pracy na delegacjach
 
 - większe koszty w pierwszej połowie roku wynikały z większej liczby dni delegacji 
-
 
 ## Technologie
 
