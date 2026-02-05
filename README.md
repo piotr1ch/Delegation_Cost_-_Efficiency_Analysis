@@ -194,7 +194,7 @@ Po zbudowaniu finalnej tabeli faktów analiza przenosi się do Power BI, gdzie:
 
 1. tworzony jest model gwiazdy,
 
-![Page1](Assets/Star_Schema.png)
+![Page1](Assets/Star_schema.png)
 
 2. definiowane są miary (Total Cost, Avg Daily Cost, rankingi),
 
