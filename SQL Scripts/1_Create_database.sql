@@ -1,0 +1,2 @@
+CREATE DATABASE delegation_analysis;
+USE delegation_analysis
